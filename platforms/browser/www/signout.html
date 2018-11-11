@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>singout</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login</title>
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="ejs.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+    <script src="cordova.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDj8xn1M4tfPpuQ08-Dk6OfIvognmc4auA",
+            authDomain: "shoppeee-ae9f3.firebaseapp.com",
+            databaseURL: "https://shoppeee-ae9f3.firebaseio.com",
+            projectId: "shoppeee-ae9f3",
+            storageBucket: "shoppeee-ae9f3.appspot.com",
+            messagingSenderId: "912926264917"
+        };
+        firebase.initializeApp(config);
+    </script>
+</head>
+
+<body>
+    <ons-page>
+        <div style="text-align: center; margin-top: 30px;">
+            <p style="margin-top: 30px;">
+                <ons-button onclick="signout()" style="background: #B22222">SIGN OUT</ons-button>
+
+            </p>
+        </div>
+    </ons-page>
+</body>
+<script>
+    function signout(){
+    firebase.auth().signOut().then(function () {
+        ons.notification.alert('See u soon 🙂').then(function(){
+        window.location.href = 'login.html';
+    });
+    }).catch(function (error) {
+        // An error happened.
+    });
+}
+
+</script>
+
+</html>

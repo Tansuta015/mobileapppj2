@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login</title>
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="ejs.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+    <script src="cordova.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDj8xn1M4tfPpuQ08-Dk6OfIvognmc4auA",
+            authDomain: "shoppeee-ae9f3.firebaseapp.com",
+            databaseURL: "https://shoppeee-ae9f3.firebaseio.com",
+            projectId: "shoppeee-ae9f3",
+            storageBucket: "shoppeee-ae9f3.appspot.com",
+            messagingSenderId: "912926264917"
+        };
+        firebase.initializeApp(config);
+    </script>
+    
+</head>
+
+<style>
+        .btn_google{
+            background: #A52A2A";
+        }
+        
+        .btn_facebook{
+            background: #1E90FF";
+        }
+        
+        .btn_signin{
+            background: #F4A460";
+        }
+
+      </style>
+
+
+
+<body>
+    <ons-page>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div style="text-align: center; margin-top: 30px;">
+
+                        <p>
+                            <ons-input id="username" modifier="underbar" placeholder="Username" float></ons-input>
+                        </p>
+                        <p>
+                            <ons-input id="password" modifier="underbar" type="password" placeholder="Password" float></ons-input>
+                        </p>
+                        <p style="margin-top: 30px;">
+                            <ons-button onclick="login()" class="btn_signin" style="width: 350px; height: 35px; background-color: #F4A460" >SIGN IN</ons-button>
+                        </p>
+                        <p style="margin-top: 50px;">
+                            <a href="register.html" style="font-size: 15px">SIGN UP FOR NEW USER</a>
+                        </p>
+
+                        <p style="margin-top: 30px;">
+                            <ons-button onclick="google()" class="btn_google" icon="google" style="width: 350px; height: 35px; background: #A52A2A" >&nbsp;&nbsp;&nbsp;Google</ons-button>
+
+                        </p>
+
+                        <p style="margin-top: 30px;">
+                            <ons-button onclick="facebook()" class="btn_facebook" icon="facebook" style="width: 350px; height: 35px;  background: #1E90FF" " >&nbsp;&nbsp; Facebook</ons-button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ons-page>
+
+</body>
+<script>
+    function google() {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+        firebase.auth().signInWithRedirect(provider);
+        firebase.auth().getRedirectResult().then(function (result) {
+            if (result.credential) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
+                // ...
+            }
+            // The signed-in user info.
+            var user = result.user;
+            console.log(user);
+        }).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+        });
+    }
+
+    function facebook() {
+        var provider = new firebase.auth.FacebookAuthProvider();
+
+        firebase.auth().signInWithRedirect(provider);
+        firebase.auth().getRedirectResult().then(function (result) {
+            if (result.credential) {
+                // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+                var token = result.credential.accessToken;
+                // ...
+            }
+            // The signed-in user info.
+            var user = result.user;
+        }).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+        });
+    }
+
+    var login = function () {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        firebase.auth().signInWithEmailAndPassword(username, password).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(error.code + ':' + error.message);
+            ons.notification.alert('Login failed');
+            // ...
+        });
+    };
+    firebase.auth().onAuthStateChanged(function (user) {
+        console.log(user)
+        if (user) {
+            window.location.href = 'home.html';
+        }
+    });
+
+</script>
+
+</html>
