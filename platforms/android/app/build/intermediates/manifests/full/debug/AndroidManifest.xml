@@ -97,7 +97,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="shoppeee-ae9f3.firebaseapp.com/"
+                    android:host="shoppeee-ae9f3.firebaseapp.com"
                     android:path="/__/auth/callback"
                     android:scheme="https" />
             </intent-filter>

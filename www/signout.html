@@ -44,6 +44,7 @@
 <script>
     function signout(){
     firebase.auth().signOut().then(function () {
+        
         ons.notification.alert('See u soon 🙂').then(function(){
         window.location.href = 'login.html';
     });

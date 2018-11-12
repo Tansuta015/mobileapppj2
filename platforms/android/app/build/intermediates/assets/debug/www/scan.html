@@ -5,81 +5,161 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Scan</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="ejs.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
     <script src="cordova.js"></script>
+
+
     <!-- <style type="text/css">
-        .scanner-laser{
-            position: absolute;
-            margin: auto;
-            height: 60px;
-            width: 60px;
-        }
-        .laser-leftTop{
-            top: 0;
-            left: 0;
-            border-top: solid green 7px;
-            border-left: solid green  7px;
-        }
-        .laser-leftBottom{
-            bottom: 0;
-            left: 0;
-            border-bottom: solid green 7px;
-            border-left: solid green 7px;
-        }
-        .laser-rightTop{
-            top: 0;
-            right: 0;
-            border-top: solid green 7px;
-            border-right: solid green  7px;
-        }
-        .laser-rightBottom{
-            bottom: 0;
-            right: 0;
-            border-bottom: solid green 7px;
-            border-right: solid green  7px;
-        }
-    </style> -->
-    <style>
         #container {
-            position: relative;
+            position: absolute;
+            text-align: center;
+            display: inline-block;
+
         }
 
         #container canvas,
         #overlay {
             position: absolute;
+            margin: auto;
+            height: -400px;
+            width: 400px;
+            text-align: center;
+            display: inline-block;
+
+
+
+
         }
 
         canvas {
-            border: 1px solid black;
+
+            border: 5px solid grey;
+            position: absolute;
+            height: 240px;
+            width: 320px;
+            opacity: 0.5;
+            text-align: center;
+            display: inline-block;
+        }
+    </style> -->
+    <style>
+        .toolbaricon {
+            padding-left: 5px;
+            padding-bottom: 5px;
+            padding-right: 5px;
+            color: white;
+        }
+
+        #overlay {
+            position: fixed;
+            /* Sit on top of the page content */
+            display: none;
+            /* Hidden by default */
+            width: 100%;
+            /* Full width (cover the whole page) */
+            height: 100%;
+            /* Full height (cover the whole page) */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Black background with opacity */
+            z-index: 2;
+            /* Specify a stack order in case you're using a different order for other elements */
+            cursor: pointer;
+            /* Add a pointer on hover */
+        }
+
+        #text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 50px;
+            color: white;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
         }
     </style>
 </head>
 
 <body>
+    <div id="overlay"></div>
+    <div id="overlay">
+        <div id="text"src="images/png-white-border-recording-screen-2.png"></div>
+    </div>
 
-        <div id="container">
-                <canvas></canvas>
-                <div id="overlay">This div is over the canvas</div>
-              </div>
-              
-    <!-- <div style="position: relative;display: inline-block;margin-top:50% ;margin-left:6%  ">
-                <canvas id="qr-canvas" width="320" height="240"></canvas>       
-                <div class="scanner-laser laser-rightBottom" style="opacity: 0.5;"></div>
-                <div class="scanner-laser laser-rightTop" style="opacity: 0.5;"></div>
-                <div class="scanner-laser laser-leftBottom" style="opacity: 0.5;"></div>
-                <div class="scanner-laser laser-leftTop" style="opacity: 0.5;"></div>
-              </div> -->
-
+    <ons-toolbar style="background-color: rgba(128, 128, 128, 0.644) ">
+        <div class="center">
+            <ons-icon class="toolbaricon">Scan</ons-icon>
+        </div>
+        <div class="right">
+            <ons-icon class="toolbaricon" size="30px" icon="camera" value="false" id="onoff" onclick="onoff()"></ons-icon>
+        </div>
+    </ons-toolbar>
 
     <script>
+        function on() {
+            document.getElementById("overlay").style.display = "block";
+        }
+        // function camerachage() {
+        //     var status = 0;
+        //     if (true) {
+
+        //         QRScanner.useFrontCamera(function (err, status) {
+        //             err && console.error(err);
+        //             console.log(status);
+        //         });
+
+
+
+        //     } else {
+        //         QRScanner.useBackCamera(function (err, status) {
+        //             err && console.error(err);
+        //             console.log(status);
+        //         });
+        //     }
+
+
+
+        // }
+        function onoff() {
+            currentvalue = document.getElementById('onoff').value; //== On
+            alert(currentvalue);
+            if (currentvalue == true) {
+                document.getElementById("onoff").value = false;
+                QRScanner.useFrontCamera(function (err, status) {
+                    err && console.error(err);
+                    console.log(status);
+                });
+            } else {
+                document.getElementById("onoff").value = true;
+                QRScanner.useBackCamera(function (err, status) {
+                    err && console.error(err);
+                    console.log(status);
+                });
+            }
+        }
+
 
         document.addEventListener("deviceready", onDeviceReady, false);
-
         function onDeviceReady() {
             // Now safe to use device APIs
-
             QRScanner.scan(displayContents);
-
+            //Lightopen
+            // QRScanner.enableLight(function (err, status) {
+            //     err && console.error(err);
+            //     console.log(status);
+            // });
             function displayContents(err, text) {
                 if (err) {
 
@@ -87,6 +167,11 @@
 
                     localStorage.setItem("code", text);
                     QRScanner.hide();
+                    //Lightclose
+                    // QRScanner.disableLight(function (err, status) {
+                    //     err && console.error(err);
+                    //     console.log(status);
+                    // });
 
                     window.location.href = 'home.html';
 
@@ -95,8 +180,6 @@
 
             QRScanner.show();
         }
-
- //   document.getElementById('overlay').innerHTML = camera();
 
     </script>
 

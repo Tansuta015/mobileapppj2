@@ -25,7 +25,7 @@
     </feature>
     <universal-links>
         <host name="tansuta.page.link/Bsiv" scheme="https" />
-        <host name="shoppeee-ae9f3.firebaseapp.com/" scheme="https">
+        <host name="shoppeee-ae9f3.firebaseapp.com" scheme="https">
             <path url="/__/auth/callback" />
         </host>
     </universal-links>

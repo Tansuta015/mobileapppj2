@@ -185,7 +185,7 @@ ADDED from D:\377-341\hellocordova\platforms\android\app\src\main\AndroidManifes
 data
 ADDED from D:\377-341\hellocordova\platforms\android\app\src\main\AndroidManifest.xml:16:9-54
 	android:path
-		ADDED from D:\377-341\hellocordova\platforms\android\app\src\main\AndroidManifest.xml:28:85-117
+		ADDED from D:\377-341\hellocordova\platforms\android\app\src\main\AndroidManifest.xml:28:84-116
 	android:host
 		ADDED from D:\377-341\hellocordova\platforms\android\app\src\main\AndroidManifest.xml:22:15-52
 	android:scheme

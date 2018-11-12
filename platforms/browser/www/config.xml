@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.tansuta.hello" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <universal-links>
-        <host name="tansuta.page.link/GZqf" scheme="https" />
-        <host name="shopee-6d268.firebaseapp.com/" scheme="https">
+        <host name="tansuta.page.link/Bsiv" scheme="https" />
+        <host name="shoppeee-ae9f3.firebaseapp.com" scheme="https">
             <path url="/__/auth/callback" />
         </host>
     </universal-links>

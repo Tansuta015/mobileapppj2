@@ -25,23 +25,11 @@
         };
         firebase.initializeApp(config);
     </script>
-    
+
 </head>
 
 <style>
-        .btn_google{
-            background: #A52A2A";
-        }
-        
-        .btn_facebook{
-            background: #1E90FF";
-        }
-        
-        .btn_signin{
-            background: #F4A460";
-        }
-
-      </style>
+</style>
 
 
 
@@ -59,19 +47,19 @@
                             <ons-input id="password" modifier="underbar" type="password" placeholder="Password" float></ons-input>
                         </p>
                         <p style="margin-top: 30px;">
-                            <ons-button onclick="login()" class="btn_signin" style="width: 350px; height: 35px; background-color: #F4A460" >SIGN IN</ons-button>
+                            <ons-button onclick="login()" class="btn_signin" style="width: 350px; height: 35px; background-color: #F4A460">SIGN IN</ons-button>
                         </p>
                         <p style="margin-top: 50px;">
                             <a href="register.html" style="font-size: 15px">SIGN UP FOR NEW USER</a>
                         </p>
 
                         <p style="margin-top: 30px;">
-                            <ons-button onclick="google()" class="btn_google" icon="google" style="width: 350px; height: 35px; background: #A52A2A" >&nbsp;&nbsp;&nbsp;Google</ons-button>
+                            <ons-button onclick="google()" class="btn_google" icon="google" style="width: 350px; height: 35px; background: #A52A2A">&nbsp;&nbsp;&nbsp;Google</ons-button>
 
                         </p>
 
                         <p style="margin-top: 30px;">
-                            <ons-button onclick="facebook()" class="btn_facebook" icon="facebook" style="width: 350px; height: 35px;  background: #1E90FF" >&nbsp;&nbsp;Facebook</ons-button>
+                            <ons-button onclick="facebook()" class="btn_facebook" icon="facebook" style="width: 350px; height: 35px;  background: #1E90FF">&nbsp;&nbsp;Facebook</ons-button>
                         </p>
                     </div>
                 </div>
@@ -138,19 +126,22 @@
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log(error.code + ':' + error.message);
-            ons.notification.alert('Login failed');
+            
+            ons.notification.toast('Login failed', {
+                timeout: 2000
+            });
             // ...
         });
     };
-   
 
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                // User is signed in.
-                //Send user to home.html
-                window.location.href = 'home.html';
-            }
-        })
+
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            // User is signed in.
+            //Send user to home.html
+            window.location.href = 'home.html';
+        }
+    })
 </script>
 
 </html>
