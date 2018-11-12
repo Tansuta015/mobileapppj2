@@ -68,22 +68,22 @@
     <script>
         function on() {
             document.getElementById("overlay").style.display = "block";
-        }
 
-        function camerachage() {
-            currentvalue = document.getElementById('onoff').value; //== On
-            if (currentvalue == true) {
-                document.getElementById("onoff").value = false;
-                QRScanner.useFrontCamera(function (err, status) {
-                    err && console.error(err);
-                    console.log(status);
-                });
-            } else {
-                document.getElementById("onoff").value = true;
-                QRScanner.useBackCamera(function (err, status) {
-                    err && console.error(err);
-                    console.log(status);
-                });
+            function camerachage() {
+                currentvalue = document.getElementById('onoff').value; //== On
+                if (currentvalue == true) {
+                    document.getElementById("onoff").value = false;
+                    QRScanner.useFrontCamera(function (err, status) {
+                        err && console.error(err);
+                        console.log(status);
+                    });
+                } else {
+                    document.getElementById("onoff").value = true;
+                    QRScanner.useBackCamera(function (err, status) {
+                        err && console.error(err);
+                        console.log(status);
+                    });
+                }
             }
         }
 

@@ -16,41 +16,6 @@
     <script src="ejs.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
     <script src="cordova.js"></script>
-
-
-    <!-- <style type="text/css">
-        #container {
-            position: absolute;
-            text-align: center;
-            display: inline-block;
-
-        }
-
-        #container canvas,
-        #overlay {
-            position: absolute;
-            margin: auto;
-            height: -400px;
-            width: 400px;
-            text-align: center;
-            display: inline-block;
-
-
-
-
-        }
-
-        canvas {
-
-            border: 5px solid grey;
-            position: absolute;
-            height: 240px;
-            width: 320px;
-            opacity: 0.5;
-            text-align: center;
-            display: inline-block;
-        }
-    </style> -->
     <style>
         .toolbaricon {
             padding-left: 5px;
@@ -59,107 +24,32 @@
             color: white;
         }
 
-        #overlay {
-            position: fixed;
-            /* Sit on top of the page content */
-            display: none;
-            /* Hidden by default */
-            width: 100%;
-            /* Full width (cover the whole page) */
-            height: 100%;
-            /* Full height (cover the whole page) */
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            /* Black background with opacity */
-            z-index: 2;
-            /* Specify a stack order in case you're using a different order for other elements */
-            cursor: pointer;
-            /* Add a pointer on hover */
-        }
-
-        #text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            font-size: 50px;
-            color: white;
-            transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-        }
     </style>
 </head>
 
 <body>
-    <div id="overlay"></div>
-    <div id="overlay">
-        <div id="text"src="images/png-white-border-recording-screen-2.png"></div>
-    </div>
+    
 
     <ons-toolbar style="background-color: rgba(128, 128, 128, 0.644) ">
         <div class="center">
             <ons-icon class="toolbaricon">Scan</ons-icon>
         </div>
         <div class="right">
-            <ons-icon class="toolbaricon" size="30px" icon="camera" value="false" id="onoff" onclick="onoff()"></ons-icon>
+            <ons-icon class="toolbaricon" size="30px" icon="camera" id="onoff" onclick="camerachage()"></ons-icon>
         </div>
     </ons-toolbar>
 
     <script>
-        function on() {
-            document.getElementById("overlay").style.display = "block";
-        }
-        // function camerachage() {
-        //     var status = 0;
-        //     if (true) {
-
-        //         QRScanner.useFrontCamera(function (err, status) {
-        //             err && console.error(err);
-        //             console.log(status);
-        //         });
-
-
-
-        //     } else {
-        //         QRScanner.useBackCamera(function (err, status) {
-        //             err && console.error(err);
-        //             console.log(status);
-        //         });
-        //     }
-
-
-
-        // }
-        function onoff() {
-            currentvalue = document.getElementById('onoff').value; //== On
-            alert(currentvalue);
-            if (currentvalue == true) {
-                document.getElementById("onoff").value = false;
-                QRScanner.useFrontCamera(function (err, status) {
-                    err && console.error(err);
-                    console.log(status);
-                });
-            } else {
-                document.getElementById("onoff").value = true;
-                QRScanner.useBackCamera(function (err, status) {
-                    err && console.error(err);
-                    console.log(status);
-                });
-            }
-        }
-
-
-        document.addEventListener("deviceready", onDeviceReady, false);
+               document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
-            // Now safe to use device APIs
+
+
             QRScanner.scan(displayContents);
-            //Lightopen
-            // QRScanner.enableLight(function (err, status) {
-            //     err && console.error(err);
-            //     console.log(status);
-            // });
+           // Lightopen
+            QRScanner.enableLight(function (err, status) {
+                err && console.error(err);
+                console.log(status);
+            });
             function displayContents(err, text) {
                 if (err) {
 
@@ -167,11 +57,11 @@
 
                     localStorage.setItem("code", text);
                     QRScanner.hide();
-                    //Lightclose
-                    // QRScanner.disableLight(function (err, status) {
-                    //     err && console.error(err);
-                    //     console.log(status);
-                    // });
+                   // Lightclose
+                    QRScanner.disableLight(function (err, status) {
+                        err && console.error(err);
+                        console.log(status);
+                    });
 
                     window.location.href = 'home.html';
 
@@ -180,6 +70,26 @@
 
             QRScanner.show();
         }
+
+        var currentvalue = false;
+        function camerachage() {
+            if (currentvalue == true) {
+                document.getElementById("onoff").value = false;
+                QRScanner.useFrontCamera(function (err, status) {
+                    err && console.error(err);
+                    console.log(status);
+                });
+                currentvalue = false
+            } else {
+                document.getElementById("onoff").value = true;
+                QRScanner.useBackCamera(function (err, status) {
+                    err && console.error(err);
+                    console.log(status);
+                });
+                currentvalue = true;
+            }
+        }
+
 
     </script>
 
